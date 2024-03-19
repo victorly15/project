@@ -41,5 +41,10 @@ public class TransactionApi {
         return new ResultStatusResponseDto(transactionService.payTransaction(JwtUtil.getFirebaseUserData(jwtToken), tid));
     }
 
+    @PatchMapping("/{tid}/finish")
+    public TransactionResponseDto finishTransaction (@PathVariable Integer tid, JwtAuthenticationToken jwtToken){
+        return new TransactionResponseDto(transactionService.finishTransaction(JwtUtil.getFirebaseUserData(jwtToken), tid));
+    }
+
 
 }

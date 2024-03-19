@@ -107,4 +107,10 @@ public class CartServiceImpl implements CartItemService {
     {
         return  cartItemRepository.findAllByUser(userEntity);
     }
+
+    @Override
+    public void emptyCartItemsforUser(UserEntity userEntity)
+    {
+        cartItemRepository.deleteAll(cartItemRepository.findAllByUser(userEntity));
+    }
 }

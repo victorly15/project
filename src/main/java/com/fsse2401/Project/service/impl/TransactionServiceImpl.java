@@ -57,4 +57,15 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transactionEntity);
         return Result.SUCCESS;
     }
+
+    @Override
+    public TransactionResponseData finishTransaction(FirebaseUserData firebaseUserData, Integer tid){
+
+        UserEntity userEntity = userService.getEntityByFirebaseUserData(firebaseUserData);
+        TransactionEntity transactionEntity = transactionRepository.findByTidAndUser(tid, userEntity).orElseThrow(TransactionNotFoundException::new);
+        transactionEntity.setStatus("SUCCESS");
+        cartItemService.emptyCartItemsforUser(userEntity);
+        return new TransactionResponseData(transactionRepository.save(transactionEntity));
+
+    }
 }

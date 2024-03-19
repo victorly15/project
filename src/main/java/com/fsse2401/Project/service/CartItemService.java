@@ -19,4 +19,6 @@ public interface CartItemService {
     Result deleteCartItemByPid(FirebaseUserData firebaseUserData, Integer pid);
 
     List<CartItemEntity> getAllCartItemByUser(UserEntity userEntity);
+
+    void emptyCartItemsforUser(UserEntity userEntity);
 }

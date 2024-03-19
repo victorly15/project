@@ -10,4 +10,6 @@ public interface TransactionService {
     TransactionResponseData getTransactionByTid(FirebaseUserData firebaseUserData, Integer tid);
 
     Result payTransaction(FirebaseUserData firebaseUserData, Integer tid);
+
+    TransactionResponseData finishTransaction(FirebaseUserData firebaseUserData, Integer tid);
 }
