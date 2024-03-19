@@ -3,6 +3,8 @@ package com.fsse2401.Project.service.impl;
 import com.fsse2401.Project.Util.ProductDataUtil;
 import com.fsse2401.Project.data.product.domainObject.ProductResponseData;
 import com.fsse2401.Project.data.product.entity.ProductEntity;
+import com.fsse2401.Project.data.transaction.Entity.TransactionEntity;
+import com.fsse2401.Project.data.transactionProduct.Entity.TransactionProductEntity;
 import com.fsse2401.Project.exception.productException.ProductNotFoundException;
 import com.fsse2401.Project.repository.ProductRepository;
 import com.fsse2401.Project.service.ProductService;
@@ -46,5 +48,15 @@ public class ProductServiceImpl implements ProductService {
     public ProductEntity getEntityById(Integer pid)
     {
         return productRepository.findById(pid).orElseThrow(ProductNotFoundException::new);
+    }
+
+    @Override
+    public void reduceStock(TransactionEntity transactionEntity){
+        for (TransactionProductEntity transactionProductEntity : transactionEntity.getProductsHasInTransaction())
+        {
+            ProductEntity productEntity = getEntityById(transactionProductEntity.getPid());
+            productEntity.setStock(productEntity.getStock() - transactionProductEntity.getQuantity());
+            productRepository.save(productEntity);
+        }
     }
 }

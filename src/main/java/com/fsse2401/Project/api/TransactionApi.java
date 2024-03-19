@@ -1,6 +1,7 @@
 package com.fsse2401.Project.api;
 
 import com.fsse2401.Project.Util.JwtUtil;
+import com.fsse2401.Project.data.CartItem.Dto.response.ResultStatusResponseDto;
 import com.fsse2401.Project.data.transaction.domainObject.response.TransactionResponseData;
 import com.fsse2401.Project.data.transaction.dto.TransactionResponseDto;
 import com.fsse2401.Project.service.TransactionService;
@@ -32,7 +33,13 @@ public class TransactionApi {
         TransactionResponseData transactionResponseData = transactionService.getTransactionByTid(JwtUtil.getFirebaseUserData(jwtToken), tid);
         TransactionResponseDto transactionResponseDto = new TransactionResponseDto(transactionResponseData);
         return transactionResponseDto;
-
-
     }
+
+    @PatchMapping("/{tid}/pay")
+    public ResultStatusResponseDto payTransaction(@PathVariable Integer tid, JwtAuthenticationToken jwtToken)
+    {
+        return new ResultStatusResponseDto(transactionService.payTransaction(JwtUtil.getFirebaseUserData(jwtToken), tid));
+    }
+
+
 }
