@@ -101,4 +101,10 @@ public class CartServiceImpl implements CartItemService {
         }
         return Result.SUCCESS;
     }
+
+    @Override
+    public List<CartItemEntity> getAllCartItemByUser(UserEntity userEntity)
+    {
+        return  cartItemRepository.findAllByUser(userEntity);
+    }
 }

@@ -1,6 +1,7 @@
 package com.fsse2401.Project.data.product.domainObject;
 
 import com.fsse2401.Project.data.product.entity.ProductEntity;
+import com.fsse2401.Project.data.transactionProduct.Entity.TransactionProductEntity;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,15 @@ public class ProductResponseData {
         this.imageUrl = productEntity.getImageUrl();
         this.price = productEntity.getPrice();
         this.stock = productEntity.getStock();
+    }
+
+    public ProductResponseData(TransactionProductEntity transactionProductEntity) {
+        this.pid = transactionProductEntity.getPid();
+        this.name = transactionProductEntity.getName();
+        this.description = transactionProductEntity.getDescription();
+        this.imageUrl = transactionProductEntity.getImageUrl();
+        this.price = transactionProductEntity.getPrice();
+        this.stock = transactionProductEntity.getStock();
     }
 
     public Integer getPid() {

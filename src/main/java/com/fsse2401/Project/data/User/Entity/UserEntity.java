@@ -2,6 +2,7 @@ package com.fsse2401.Project.data.User.Entity;
 
 import com.fsse2401.Project.data.CartItem.Entity.CartItemEntity;
 import com.fsse2401.Project.data.User.domainObject.FirebaseUserData;
+import com.fsse2401.Project.data.transaction.Entity.TransactionEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     List<CartItemEntity> userHasInCarts;
+
+    @OneToMany(mappedBy = "user")
+    List<TransactionEntity> userHasInTransaction;
 
     public UserEntity() {
     }
