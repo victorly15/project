@@ -5,4 +5,6 @@ import com.fsse2401.Project.data.transaction.domainObject.response.TransactionRe
 
 public interface TransactionService {
     TransactionResponseData createNewTransaction(FirebaseUserData firebaseUserData);
+
+    TransactionResponseData getTransactionByTid(FirebaseUserData firebaseUserData, Integer tid);
 }

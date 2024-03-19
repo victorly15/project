@@ -5,7 +5,7 @@ import com.fsse2401.Project.data.User.Entity.UserEntity;
 import com.fsse2401.Project.data.User.domainObject.FirebaseUserData;
 import com.fsse2401.Project.data.transaction.Entity.TransactionEntity;
 import com.fsse2401.Project.data.transaction.domainObject.response.TransactionResponseData;
-import com.fsse2401.Project.data.transactionProduct.Entity.TransactionProductEntity;
+import com.fsse2401.Project.exception.transactionException.TransactionNotFoundException;
 import com.fsse2401.Project.repository.TransactionRepository;
 import com.fsse2401.Project.service.CartItemService;
 import com.fsse2401.Project.service.TransactionProductService;
@@ -36,10 +36,14 @@ public class TransactionServiceImpl implements TransactionService {
         List<CartItemEntity> cartItemEntityList = cartItemService.getAllCartItemByUser(userEntity);
         TransactionEntity transactionEntity = new TransactionEntity(userEntity, "PREPARE", cartItemEntityList);
         transactionRepository.save(transactionEntity);
-//        for (CartItemEntity cartItemEntity : cartItemEntityList)
-//        {
-//            transactionEntity.getProductsHasInTransaction().add(new TransactionProductEntity(transactionEntity, cartItemEntity));
-//        }
+
         return new TransactionResponseData(transactionProductService.createNewTransactionProduct(cartItemEntityList, transactionEntity));
+    }
+
+    @Override
+    public TransactionResponseData getTransactionByTid(FirebaseUserData firebaseUserData, Integer tid) {
+        UserEntity userEntity = userService.getEntityByFirebaseUserData(firebaseUserData);
+        return new TransactionResponseData(
+                transactionRepository.findByTidAndUser(tid, userEntity).orElseThrow(TransactionNotFoundException::new));
     }
 }
